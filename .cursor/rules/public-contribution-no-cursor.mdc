@@ -1,0 +1,29 @@
+---
+description: Contribuição pública sem rastro do Cursor
+alwaysApply: true
+---
+
+# Contribuição pública sem marca Cursor
+
+Este repositório é tratado como contribuição pública. Ao trabalhar aqui:
+
+## Branches
+
+- **Nunca** criar, renomear ou publicar branches cujo nome contenha `cursor` (incluindo prefixo `cursor/`, sufixos de agent id, etc.).
+- Usar nomes descritivos neutros, por exemplo: `techdocs-document-history`, `fix-techdocs-reader`.
+
+## Código e documentação
+
+- **Nunca** mencionar Cursor, Cloud Agent, Auto, Composer ou ferramentas semelhantes em comentários de código, TSDoc, commits message body (exceto o necessário pelo DCO), docs, changesets ou descrições de PR.
+- Comentários e docs devem descrever apenas o comportamento técnico do Backstage.
+
+## Commits e autoria
+
+- **Nunca** adicionar `Co-authored-by` (nem qualquer trailer) referindo Cursor, agentes ou contas `cursoragent@*`.
+- Commits devem usar a identidade do mantenedor do fork (nome e e-mail do dono do repositório), com `Signed-off-by` nessa mesma identidade para o DCO do Backstage.
+- Não deixar autor/committer como `Cursor Agent` ou e-mails `@cursor.com` / `cursoragent@*`.
+
+## Pull requests
+
+- Títulos e corpos de PR não devem citar Cursor ou automação; foque no que muda para adotantes do Backstage.
+- Se uma branch antiga com `cursor` no nome existir, migrar o trabalho para uma branch limpa, publicar a PR limpa e remover a branch antiga.
