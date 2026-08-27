@@ -17,6 +17,13 @@ import { PropsWithChildren } from 'react';
 import { ReactNode } from 'react';
 import { RouteFunc } from '@backstage/core-plugin-api';
 import { SetStateAction } from 'react';
+import { TechDocsDocumentBlameLine } from '@backstage/plugin-techdocs-common';
+import { TechDocsDocumentCommit } from '@backstage/plugin-techdocs-common';
+import { TechDocsDocumentContent } from '@backstage/plugin-techdocs-common';
+import { TechDocsDocumentDiff } from '@backstage/plugin-techdocs-common';
+import { TechDocsDocumentHistoryScmType } from '@backstage/plugin-techdocs-common';
+import { TechDocsDocumentSource } from '@backstage/plugin-techdocs-common';
+import { TechDocsDocumentTag } from '@backstage/plugin-techdocs-common';
 
 // @public
 export const buildTechDocsURL: (
@@ -83,6 +90,37 @@ export interface TechDocsApi {
   getCookie(): Promise<{
     expiresAt: string;
   }>;
+  getDocumentBlame?(
+    entityId: CompoundEntityRef,
+    source: TechDocsDocumentSource,
+  ): Promise<{
+    lines: TechDocsDocumentBlameLine[];
+  }>;
+  getDocumentContent?(
+    entityId: CompoundEntityRef,
+    source: TechDocsDocumentSource,
+  ): Promise<TechDocsDocumentContent>;
+  getDocumentDiff?(
+    entityId: CompoundEntityRef,
+    source: TechDocsDocumentSource,
+    fromRef: string,
+    toRef: string,
+  ): Promise<TechDocsDocumentDiff>;
+  getDocumentHistory?(
+    entityId: CompoundEntityRef,
+    source: TechDocsDocumentSource,
+    options?: {
+      limit?: number;
+    },
+  ): Promise<{
+    commits: TechDocsDocumentCommit[];
+  }>;
+  getDocumentTags?(
+    entityId: CompoundEntityRef,
+    source: TechDocsDocumentSource,
+  ): Promise<{
+    tags: TechDocsDocumentTag[];
+  }>;
   // (undocumented)
   getEntityMetadata(
     entityId: CompoundEntityRef,
@@ -93,6 +131,20 @@ export interface TechDocsApi {
 
 // @public
 export const techdocsApiRef: ApiRef<TechDocsApi>;
+
+export { TechDocsDocumentBlameLine };
+
+export { TechDocsDocumentCommit };
+
+export { TechDocsDocumentContent };
+
+export { TechDocsDocumentDiff };
+
+export { TechDocsDocumentHistoryScmType };
+
+export { TechDocsDocumentSource };
+
+export { TechDocsDocumentTag };
 
 // @public
 export type TechDocsEntityMetadata = Entity & {

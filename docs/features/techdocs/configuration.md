@@ -164,6 +164,29 @@ techdocs:
   builder: 'local'
 ```
 
+## Document History Configuration
+
+`techdocs.history.enabled`
+
+(Optional) Enables optional document history features for TechDocs pages: commit
+history, tags, file compare, blame, and browsing a selected source revision
+while navigating within the same documentation site.
+
+Defaults to `false`. When enabled, register the
+[`DocumentHistory`](./addons.md) addon (or
+`techDocsDocumentHistoryAddonModule` on the new frontend system). Pages need a
+working MkDocs `edit_uri` so TechDocs can map the current page back to a source
+file, and your Backstage instance needs a configured GitHub or GitLab
+integration with credentials that can read the repository.
+
+**Example:**
+
+```yaml
+techdocs:
+  history:
+    enabled: true
+```
+
 ## Publisher Configuration
 
 `techdocs.publisher`

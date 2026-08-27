@@ -69,5 +69,17 @@ export interface Config {
        */
       additionalAllowedURIProtocols?: string[];
     };
+
+    /**
+     * Document history features backed by SCM (commit history, blame, tags, diff).
+     */
+    history?: {
+      /**
+       * Enable document history, blame, tags, and version browsing in TechDocs.
+       * Defaults to false.
+       * @visibility frontend
+       */
+      enabled?: boolean;
+    };
   };
 }

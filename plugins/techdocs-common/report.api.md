@@ -12,4 +12,62 @@ export const TECHDOCS_EXTERNAL_ANNOTATION = 'backstage.io/techdocs-entity';
 // @public (undocumented)
 export const TECHDOCS_EXTERNAL_PATH_ANNOTATION =
   'backstage.io/techdocs-entity-path';
+
+// @public
+export type TechDocsDocumentBlameLine = {
+  lineNumber: number;
+  content: string;
+  sha: string;
+  shortSha: string;
+  authorName: string;
+  authoredAt: string;
+};
+
+// @public
+export type TechDocsDocumentCommit = {
+  sha: string;
+  shortSha: string;
+  message: string;
+  authorName: string;
+  authorEmail?: string;
+  authoredAt: string;
+  htmlUrl?: string;
+};
+
+// @public
+export type TechDocsDocumentContent = {
+  ref: string;
+  path: string;
+  content: string;
+};
+
+// @public
+export type TechDocsDocumentDiff = {
+  fromRef: string;
+  toRef: string;
+  patch?: string;
+  fromContent?: string;
+  toContent?: string;
+};
+
+// @public
+export type TechDocsDocumentHistoryScmType = 'github' | 'gitlab';
+
+// @public
+export type TechDocsDocumentSource = {
+  type: TechDocsDocumentHistoryScmType;
+  host: string;
+  owner: string;
+  repo: string;
+  path: string;
+  ref?: string;
+};
+
+// @public
+export type TechDocsDocumentTag = {
+  name: string;
+  sha: string;
+  containsFile?: boolean;
+  htmlUrl?: string;
+};
 ```

@@ -32,6 +32,8 @@ import { DocsSynchronizer, DocsSynchronizerSyncOpts } from './DocsSynchronizer';
 import { createCacheMiddleware, TechDocsCache } from '../cache';
 import { CachedEntityLoader } from './CachedEntityLoader';
 import { DefaultDocsBuildStrategy } from './DefaultDocsBuildStrategy';
+import { DocumentHistoryService } from './documentHistory/DocumentHistoryService';
+import { addDocumentHistoryRoutes } from './documentHistory/routes';
 import * as winston from 'winston';
 import {
   AuthService,
@@ -153,6 +155,13 @@ export async function createRouter(
     config,
     scmIntegrations,
     cache,
+  });
+
+  addDocumentHistoryRoutes({
+    router,
+    documentHistory: DocumentHistoryService.fromConfig(config),
+    entityLoader,
+    httpAuth,
   });
 
   router.get('/metadata/techdocs/:namespace/:kind/:name', async (req, res) => {

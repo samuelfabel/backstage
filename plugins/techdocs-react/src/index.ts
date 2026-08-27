@@ -41,6 +41,15 @@ export type {
   TechDocsMetadata,
   TechDocsAddonOptions,
 } from './types';
+export type {
+  TechDocsDocumentBlameLine,
+  TechDocsDocumentCommit,
+  TechDocsDocumentContent,
+  TechDocsDocumentDiff,
+  TechDocsDocumentHistoryScmType,
+  TechDocsDocumentSource,
+  TechDocsDocumentTag,
+} from '@backstage/plugin-techdocs-common';
 export type { TechDocsShadowDomProps } from './component';
 export {
   TechDocsShadowDom,

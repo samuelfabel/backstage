@@ -27,6 +27,7 @@ import {
   TechDocsReaderPage,
   EntityTechdocsContent,
 } from '@backstage/plugin-techdocs';
+import { techDocsDocumentHistoryAddonModule } from '@backstage/plugin-techdocs-module-addons-contrib/alpha';
 import appVisualizerPlugin from '@backstage/plugin-app-visualizer';
 import { convertLegacyAppRoot } from '@backstage/core-compat-api';
 import { FlatRoutes } from '@backstage/core-app-api';
@@ -88,6 +89,7 @@ const app = createApp({
     customizedCatalog,
     pagesPlugin,
     convertedTechdocsPlugin,
+    techDocsDocumentHistoryAddonModule,
     userSettingsPlugin,
     homePlugin,
     appVisualizerPlugin,

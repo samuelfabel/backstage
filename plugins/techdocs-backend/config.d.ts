@@ -317,6 +317,18 @@ export interface Config {
     };
 
     /**
+     * Document history features backed by SCM (commit history, blame, tags, diff).
+     */
+    history?: {
+      /**
+       * Enable document history, blame, tags, and version browsing in TechDocs.
+       * Defaults to false.
+       * @visibility frontend
+       */
+      enabled?: boolean;
+    };
+
+    /**
      * (Optional and not recommended) Prior to version [0.x.y] of TechDocs, docs
      * sites could only be accessed over paths with case-sensitive entity triplets
      * e.g. (namespace/Kind/name). If you are upgrading from an older version of

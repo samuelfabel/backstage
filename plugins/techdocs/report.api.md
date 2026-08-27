@@ -31,6 +31,12 @@ import { TableColumn } from '@backstage/core-components';
 import { TableOptions } from '@backstage/core-components';
 import { TableProps } from '@backstage/core-components';
 import { TechDocsApi as TechDocsApi_2 } from '@backstage/plugin-techdocs-react';
+import { TechDocsDocumentBlameLine } from '@backstage/plugin-techdocs-react';
+import { TechDocsDocumentCommit } from '@backstage/plugin-techdocs-react';
+import { TechDocsDocumentContent } from '@backstage/plugin-techdocs-react';
+import { TechDocsDocumentDiff } from '@backstage/plugin-techdocs-react';
+import { TechDocsDocumentSource } from '@backstage/plugin-techdocs-react';
+import { TechDocsDocumentTag } from '@backstage/plugin-techdocs-react';
 import { TechDocsEntityMetadata as TechDocsEntityMetadata_2 } from '@backstage/plugin-techdocs-react';
 import { TechDocsMetadata as TechDocsMetadata_2 } from '@backstage/plugin-techdocs-react';
 import { TechDocsStorageApi as TechDocsStorageApi_2 } from '@backstage/plugin-techdocs-react';
@@ -321,6 +327,42 @@ export class TechDocsClient implements TechDocsApi_2 {
   // (undocumented)
   getCookie(): Promise<{
     expiresAt: string;
+  }>;
+  // (undocumented)
+  getDocumentBlame(
+    entityId: CompoundEntityRef,
+    source: TechDocsDocumentSource,
+  ): Promise<{
+    lines: TechDocsDocumentBlameLine[];
+  }>;
+  // (undocumented)
+  getDocumentContent(
+    entityId: CompoundEntityRef,
+    source: TechDocsDocumentSource,
+  ): Promise<TechDocsDocumentContent>;
+  // (undocumented)
+  getDocumentDiff(
+    entityId: CompoundEntityRef,
+    source: TechDocsDocumentSource,
+    fromRef: string,
+    toRef: string,
+  ): Promise<TechDocsDocumentDiff>;
+  // (undocumented)
+  getDocumentHistory(
+    entityId: CompoundEntityRef,
+    source: TechDocsDocumentSource,
+    options?: {
+      limit?: number;
+    },
+  ): Promise<{
+    commits: TechDocsDocumentCommit[];
+  }>;
+  // (undocumented)
+  getDocumentTags(
+    entityId: CompoundEntityRef,
+    source: TechDocsDocumentSource,
+  ): Promise<{
+    tags: TechDocsDocumentTag[];
   }>;
   getEntityMetadata(
     entityId: CompoundEntityRef,

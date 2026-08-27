@@ -28,8 +28,28 @@ import {
   TechDocsEntityMetadata,
   TechDocsMetadata,
   TechDocsStorageApi,
+  TechDocsDocumentBlameLine,
+  TechDocsDocumentCommit,
+  TechDocsDocumentContent,
+  TechDocsDocumentDiff,
+  TechDocsDocumentSource,
+  TechDocsDocumentTag,
 } from '@backstage/plugin-techdocs-react';
 import { fetchEventSource } from '@microsoft/fetch-event-source';
+
+function buildDocumentSourceParams(source: TechDocsDocumentSource): string {
+  const params = new URLSearchParams({
+    type: source.type,
+    host: source.host,
+    owner: source.owner,
+    repo: source.repo,
+    path: source.path,
+  });
+  if (source.ref) {
+    params.set('ref', source.ref);
+  }
+  return params.toString();
+}
 
 /**
  * API to talk to `techdocs-backend`.
@@ -113,6 +133,71 @@ export class TechDocsClient implements TechDocsApi {
     }
 
     return await request.json();
+  }
+
+  private async fetchDocumentEndpoint<T>(
+    entityId: CompoundEntityRef,
+    endpoint: string,
+    source: TechDocsDocumentSource,
+    extraParams?: Record<string, string>,
+  ): Promise<T> {
+    const { kind, namespace, name } = entityId;
+    const apiOrigin = await this.getApiOrigin();
+    const params = new URLSearchParams(buildDocumentSourceParams(source));
+    if (extraParams) {
+      for (const [key, value] of Object.entries(extraParams)) {
+        params.set(key, value);
+      }
+    }
+    const requestUrl = `${apiOrigin}/document/${namespace}/${kind}/${name}/${endpoint}?${params}`;
+    const request = await this.fetchApi.fetch(requestUrl);
+    if (!request.ok) {
+      throw await ResponseError.fromResponse(request);
+    }
+    return await request.json();
+  }
+
+  async getDocumentHistory(
+    entityId: CompoundEntityRef,
+    source: TechDocsDocumentSource,
+    options?: { limit?: number },
+  ): Promise<{ commits: TechDocsDocumentCommit[] }> {
+    return this.fetchDocumentEndpoint(entityId, 'history', source, {
+      ...(options?.limit ? { limit: String(options.limit) } : {}),
+    });
+  }
+
+  async getDocumentBlame(
+    entityId: CompoundEntityRef,
+    source: TechDocsDocumentSource,
+  ): Promise<{ lines: TechDocsDocumentBlameLine[] }> {
+    return this.fetchDocumentEndpoint(entityId, 'blame', source);
+  }
+
+  async getDocumentContent(
+    entityId: CompoundEntityRef,
+    source: TechDocsDocumentSource,
+  ): Promise<TechDocsDocumentContent> {
+    return this.fetchDocumentEndpoint(entityId, 'content', source);
+  }
+
+  async getDocumentDiff(
+    entityId: CompoundEntityRef,
+    source: TechDocsDocumentSource,
+    fromRef: string,
+    toRef: string,
+  ): Promise<TechDocsDocumentDiff> {
+    return this.fetchDocumentEndpoint(entityId, 'diff', source, {
+      from: fromRef,
+      to: toRef,
+    });
+  }
+
+  async getDocumentTags(
+    entityId: CompoundEntityRef,
+    source: TechDocsDocumentSource,
+  ): Promise<{ tags: TechDocsDocumentTag[] }> {
+    return this.fetchDocumentEndpoint(entityId, 'tags', source);
   }
 }
 
