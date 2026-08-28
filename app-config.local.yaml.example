@@ -1,0 +1,15 @@
+# Copy this file to app-config.local.yaml in the repository root.
+# app-config.local.yaml is gitignored and overrides app-config.yaml locally.
+#
+# See docs/features/techdocs/document-history-demo.md for a full walkthrough.
+
+techdocs:
+  history:
+    enabled: true
+
+# Optional but recommended: raises GitHub API rate limits when browsing history.
+# A classic PAT with public repo read access is enough for the example docs.
+integrations:
+  github:
+    - host: github.com
+      token: ${GITHUB_TOKEN}

@@ -187,6 +187,9 @@ techdocs:
     enabled: true
 ```
 
+For a hands-on walkthrough using the built-in `documented-component` example,
+see [Document History Demo](./document-history-demo.md).
+
 ## Publisher Configuration
 
 `techdocs.publisher`

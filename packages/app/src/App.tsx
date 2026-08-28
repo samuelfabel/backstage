@@ -21,12 +21,7 @@ import userSettingsPlugin from '@backstage/plugin-user-settings/alpha';
 import homePlugin from '@backstage/plugin-home/alpha';
 
 import { createFrontendModule } from '@backstage/frontend-plugin-api';
-import {
-  techdocsPlugin,
-  TechDocsIndexPage,
-  TechDocsReaderPage,
-  EntityTechdocsContent,
-} from '@backstage/plugin-techdocs';
+import techdocsPlugin from '@backstage/plugin-techdocs/alpha';
 import { techDocsDocumentHistoryAddonModule } from '@backstage/plugin-techdocs-module-addons-contrib/alpha';
 import appVisualizerPlugin from '@backstage/plugin-app-visualizer';
 import { convertLegacyAppRoot } from '@backstage/core-compat-api';
@@ -34,33 +29,12 @@ import { FlatRoutes } from '@backstage/core-app-api';
 import { Route } from 'react-router';
 import { CatalogImportPage } from '@backstage/plugin-catalog-import';
 import kubernetesPlugin from '@backstage/plugin-kubernetes/alpha';
-import { convertLegacyPlugin } from '@backstage/core-compat-api';
-import { convertLegacyPageExtension } from '@backstage/core-compat-api';
-import { convertLegacyEntityContentExtension } from '@backstage/plugin-catalog-react/alpha';
 import { pluginInfoResolver } from './pluginInfoResolver';
 import { appModuleNav } from './modules/appModuleNav';
 import { appModuleHome } from './modules/appModuleHome';
 import { appModuleScaffolder } from './modules/appModuleScaffolder';
 import catalogPlugin from '@backstage/plugin-catalog/alpha';
 import InfoIcon from '@material-ui/icons/Info';
-
-/**
- * TechDocs does support the new frontend system so this conversion is not
- * strictly necessary, but it's left here to provide a demo of the utilities for
- * converting legacy plugins.
- */
-const convertedTechdocsPlugin = convertLegacyPlugin(techdocsPlugin, {
-  extensions: [
-    convertLegacyPageExtension(TechDocsIndexPage, {
-      name: 'index',
-      path: '/docs',
-    }),
-    convertLegacyPageExtension(TechDocsReaderPage, {
-      path: '/docs/:namespace/:kind/:name/*',
-    }),
-    convertLegacyEntityContentExtension(EntityTechdocsContent),
-  ],
-});
 
 // customize catalog example
 const customizedCatalog = catalogPlugin.withOverrides({
@@ -88,7 +62,7 @@ const app = createApp({
   features: [
     customizedCatalog,
     pagesPlugin,
-    convertedTechdocsPlugin,
+    techdocsPlugin,
     techDocsDocumentHistoryAddonModule,
     userSettingsPlugin,
     homePlugin,

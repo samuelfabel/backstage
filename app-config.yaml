@@ -310,8 +310,8 @@ techdocs:
   publisher:
     type: 'local' # Alternatives - 'googleGcs' or 'awsS3' or 'azureBlobStorage' or 'openStackSwift'. Read documentation for using alternatives.
   # Optional: enable Confluence-like document history (commits, tags, compare, blame)
-  # history:
-  #   enabled: true
+  history:
+    enabled: true
 
 integrations:
   github:
