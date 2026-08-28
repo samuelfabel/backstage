@@ -19,6 +19,7 @@ import { TextSizeAddon } from './TextSize';
 import { ReportIssueAddon } from './ReportIssue';
 import { ExpandableNavigationAddon } from './ExpandableNavigation';
 import { LightBoxAddon } from './LightBox';
+import { DocumentHistoryAddon } from './DocumentHistory';
 import {
   createFrontendFeatureLoader,
   createFrontendModule,
@@ -89,11 +90,28 @@ export const techDocsLightBoxAddonModule = createFrontendModule({
 });
 
 /** @alpha */
+const techDocsDocumentHistoryAddon = AddonBlueprint.make({
+  name: 'document-history',
+  params: {
+    name: 'DocumentHistory',
+    location: TechDocsAddonLocations.Subheader,
+    component: DocumentHistoryAddon,
+  },
+});
+
+/** @alpha */
+export const techDocsDocumentHistoryAddonModule = createFrontendModule({
+  pluginId: 'techdocs',
+  extensions: [techDocsDocumentHistoryAddon],
+});
+
+/** @alpha */
 export default createFrontendFeatureLoader({
   async *loader() {
     yield techDocsExpandableNavigationAddonModule;
     yield techDocsReportIssueAddonModule;
     yield techDocsTextSizeAddonModule;
     yield techDocsLightBoxAddonModule;
+    yield techDocsDocumentHistoryAddonModule;
   },
 });

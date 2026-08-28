@@ -11,6 +11,9 @@ const _default: FrontendFeatureLoader;
 export default _default;
 
 // @alpha (undocumented)
+export const techDocsDocumentHistoryAddonModule: FrontendModule;
+
+// @alpha (undocumented)
 export const techDocsExpandableNavigationAddonModule: FrontendModule;
 
 // @alpha (undocumented)

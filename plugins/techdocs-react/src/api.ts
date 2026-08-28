@@ -16,6 +16,14 @@
 
 import { CompoundEntityRef } from '@backstage/catalog-model';
 import { createApiRef } from '@backstage/core-plugin-api';
+import {
+  TechDocsDocumentBlameLine,
+  TechDocsDocumentCommit,
+  TechDocsDocumentContent,
+  TechDocsDocumentDiff,
+  TechDocsDocumentSource,
+  TechDocsDocumentTag,
+} from '@backstage/plugin-techdocs-common';
 import { TechDocsEntityMetadata, TechDocsMetadata } from './types';
 
 /**
@@ -30,6 +38,50 @@ export interface TechDocsApi {
   getEntityMetadata(
     entityId: CompoundEntityRef,
   ): Promise<TechDocsEntityMetadata>;
+  /**
+   * Returns commit history for a documentation source file.
+   * Only available when `techdocs.history.enabled` is true.
+   */
+  getDocumentHistory?(
+    entityId: CompoundEntityRef,
+    source: TechDocsDocumentSource,
+    options?: { limit?: number },
+  ): Promise<{ commits: TechDocsDocumentCommit[] }>;
+  /**
+   * Returns git blame for a documentation source file.
+   * Only available when `techdocs.history.enabled` is true.
+   */
+  getDocumentBlame?(
+    entityId: CompoundEntityRef,
+    source: TechDocsDocumentSource,
+  ): Promise<{ lines: TechDocsDocumentBlameLine[] }>;
+  /**
+   * Returns the raw content of a documentation source file at a revision.
+   * Only available when `techdocs.history.enabled` is true.
+   */
+  getDocumentContent?(
+    entityId: CompoundEntityRef,
+    source: TechDocsDocumentSource,
+  ): Promise<TechDocsDocumentContent>;
+  /**
+   * Returns a diff between two revisions of a documentation source file.
+   * Only available when `techdocs.history.enabled` is true.
+   */
+  getDocumentDiff?(
+    entityId: CompoundEntityRef,
+    source: TechDocsDocumentSource,
+    fromRef: string,
+    toRef: string,
+  ): Promise<TechDocsDocumentDiff>;
+  /**
+   * Returns git tags for the documentation repository, optionally noting
+   * which tags contain the source file.
+   * Only available when `techdocs.history.enabled` is true.
+   */
+  getDocumentTags?(
+    entityId: CompoundEntityRef,
+    source: TechDocsDocumentSource,
+  ): Promise<{ tags: TechDocsDocumentTag[] }>;
 }
 
 /**

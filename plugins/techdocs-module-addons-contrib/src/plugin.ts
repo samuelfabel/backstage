@@ -23,6 +23,7 @@ import { ExpandableNavigationAddon } from './ExpandableNavigation';
 import { ReportIssueAddon, ReportIssueProps } from './ReportIssue';
 import { TextSizeAddon } from './TextSize';
 import { LightBoxAddon } from './LightBox';
+import { DocumentHistoryAddon } from './DocumentHistory';
 
 /**
  * The TechDocs addons contrib plugin
@@ -250,5 +251,34 @@ export const LightBox = techdocsModuleAddonsContribPlugin.provide(
     name: 'LightBox',
     location: TechDocsAddonLocations.Content,
     component: LightBoxAddon,
+  }),
+);
+
+/**
+ * TechDocs addon that adds optional document history tooling similar to a wiki:
+ * commit history, tags, file compare, blame, and browsing a selected revision
+ * while navigating within the same documentation site.
+ *
+ * @remarks
+ * Requires `techdocs.history.enabled: true` in app-config, an `edit_uri` so the
+ * current page can be mapped back to a source file, and a configured GitHub or
+ * GitLab integration with credentials that can read the repository.
+ *
+ * @example
+ * ```
+ * import { DocumentHistory } from '@backstage/plugin-techdocs-module-addons-contrib';
+ *
+ * <TechDocsAddons>
+ *   <DocumentHistory />
+ * </TechDocsAddons>
+ * ```
+ *
+ * @public
+ */
+export const DocumentHistory = techdocsModuleAddonsContribPlugin.provide(
+  createTechDocsAddonExtension({
+    name: 'DocumentHistory',
+    location: TechDocsAddonLocations.Subheader,
+    component: DocumentHistoryAddon,
   }),
 );

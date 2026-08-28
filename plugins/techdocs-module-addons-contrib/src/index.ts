@@ -26,6 +26,7 @@ export {
   ReportIssue,
   TextSize,
   LightBox,
+  DocumentHistory,
 } from './plugin';
 export type {
   ReportIssueProps,

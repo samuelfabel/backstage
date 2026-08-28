@@ -6,6 +6,9 @@
 import { BackstagePlugin } from '@backstage/core-plugin-api';
 
 // @public
+export const DocumentHistory: () => JSX.Element | null;
+
+// @public
 export const ExpandableNavigation: () => JSX.Element | null;
 
 // @public
